@@ -13,8 +13,13 @@ app = FastAPI()
 
 @app.post("/item/")
 async def create_item(item:Item):
-
-    return item
+  item_dict = item.dict()
+  if Item.tax:
+    price_with_tax = Item.tax + Item.price
+    item_dict.update({"price_with_tax":price_with_tax})
+      
+    return item_dict 
+     
 
 
    
