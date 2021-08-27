@@ -1,5 +1,5 @@
 
-from typing import Optional
+from typing import Optional,List
 from fastapi import FastAPI,Query
 
 
@@ -7,12 +7,11 @@ app = FastAPI()
 
 
 @app.get("/items/")
-async def read_item(q:str=Query("fixedquery",min_length=3,)):
-    result= {"item_id":[{"item_id":"Foo"},{"item_id":"Bar"}]} 
-    if q:
-        result.update({"q":q})
+async def read_item(q:Optional[List[str]]=Query(None)):
+    
+    query_item ={"q":q}
 
-        return result
+    return query_item
 
 
    
