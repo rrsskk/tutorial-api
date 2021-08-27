@@ -12,17 +12,14 @@ class Item (BaseModel):
     price:float
     tax:Optional[float]=None
 
-class User(BaseModel):
-    username: str
-    full_name:Optional[str]=None
+
 
 
 @app.put("/items/{item_id}")
-async def update_item(item_id:int,item:Item,user:User,importance:int= Body(...,gt=0),q:Optional[str]=None):
+async def update_item(item_id:int,item:Item= Body(...,embed=True)):
     
-    result = {"item_id": item_id,"item":item,"user":user,"importance":importance}
-    if q:
-        result.update({"q":q})
+    result = {"item_id": item_id,"item":item}
+    
     
     return result
 
