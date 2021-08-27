@@ -1,6 +1,6 @@
 
-from typing import Optional,List
-from fastapi import FastAPI,Body
+from typing import Optional, Set
+from fastapi import FastAPI
 from pydantic import BaseModel
 
 
@@ -11,7 +11,7 @@ class Item (BaseModel):
     description:Optional[str]=None
     price:float
     tax:Optional[float] = None
-    tags:List[str]=[]
+    tags:Set[str]= set()
 
 
 
