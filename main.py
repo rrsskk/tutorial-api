@@ -1,16 +1,16 @@
 
 from typing import Optional
 from fastapi import FastAPI,Body
-from pydantic import BaseModel
+from pydantic import BaseModel,Field
 
 
 app = FastAPI()
 
 class Item (BaseModel):
     name:str
-    description:Optional[str]=None
+    description:Optional[str]=Field(None,title="The description of item",max_length=1000)
     price:float
-    tax:Optional[float]=None
+    tax:Optional[float]=Field(...,gt=0,description="The price must be greater than zero")
 
 
 
