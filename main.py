@@ -6,22 +6,22 @@ from pydantic import BaseModel
 
 app = FastAPI()
 
-class item (BaseModel):
+class Item (BaseModel):
     name:str
     description:Optional[str]=None
     price:float
     tax:Optional[float]=None
 
+class User(BaseModel):
+    username: str
+    full_name:Optional[str]=None
+
+
 @app.put("/items/{item_id}")
-async def update_item(*,
-item_id: int=Path(...,title="The id of item to get",ge=0,le=100),
-    q:Optional[str]=None,item:Optional[item]=None):
+async def update_item(item_id:int,item:Item,user:User):
     
-    result = {"item_id": item_id}
-    if q:
-         result.update({"q": q})
-    if item:
-        result.update({"item":item})
+    result = {"item_id": item_id,"item":item,"user":user}
+    
     return result
 
 
