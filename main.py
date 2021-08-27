@@ -7,7 +7,7 @@ app = FastAPI()
 
 
 @app.get("/items/")
-async def read_item(q:Optional[str]=Query(None,min_length=3,max_length=50,regex="^fixedquerry$")):
+async def read_item(q:str=Query("fixedquery",min_length=3,)):
     result= {"item_id":[{"item_id":"Foo"},{"item_id":"Bar"}]} 
     if q:
         result.update({"q":q})
