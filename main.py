@@ -18,9 +18,11 @@ class User(BaseModel):
 
 
 @app.put("/items/{item_id}")
-async def update_item(item_id:int,item:Item,user:User,importance:int= Body(...)):
+async def update_item(item_id:int,item:Item,user:User,importance:int= Body(...,gt=0),q:Optional[str]=None):
     
     result = {"item_id": item_id,"item":item,"user":user,"importance":importance}
+    if q:
+        result.update({"q":q})
     
     return result
 
