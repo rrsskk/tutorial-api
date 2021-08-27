@@ -1,16 +1,16 @@
 
 from typing import Optional
-from fastapi import FastAPI,Query
+from fastapi import FastAPI,Path,Query
 
 
 app = FastAPI()
 
 
-@app.get("/items/")
-async def read_item(q:Optional[str]=Query(None,title="item_query",description="This is matched query parameter",
-alias="item-query",min_length=3,max_length=50,regex="^item_query$",deprecated=True)):
+@app.get("/items/{item_id}")
+async def read_item(item_id:int=Path(...,title="The id of item to get"),
+    q:Optional[str]=Query(None,alias="item-query")):
     
-    result = {"items":[{"item_id":"Foo"},{"item_id":"Bar"}]}
+    result = {"item_id":item_id}
     if q:
         result.update({"q": q})
     return result
