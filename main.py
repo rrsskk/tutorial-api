@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Optional,List
 
 from fastapi import FastAPI, Header
 
@@ -7,7 +7,7 @@ app = FastAPI()
 
 @app.get("/items/")
 
-async def read_items(strange_header: Optional[str] = Header(None,convert_underscore=False)):
+async def read_items(x_token: Optional[List[str]] = Header(None)):
 
-    return {"strange_header":strange_header}
+    return {"x_token_values":x_token}
 
