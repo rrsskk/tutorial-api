@@ -20,14 +20,16 @@ class Item (BaseModel):
 
 
 
+class Offer (BaseModel):
+    name :str
+    description: Optional[str]=None
+    price:float
+    item:List[Item]
 
-@app.put("/items/{item_id}")
-async def update_item(item_id:int,item:Item):
+@app.post("/offer/")
+async def create_offer(offer:Offer):
     
-    result = {"item_id": item_id,"item":item}
-    
-    
-    return result
+    return offer
 
 
     
