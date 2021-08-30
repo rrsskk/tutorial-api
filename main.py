@@ -1,22 +1,20 @@
 
-from typing import List
+from typing import Dict
 from fastapi import FastAPI
 from pydantic import BaseModel,HttpUrl
 
 
 app = FastAPI()
 
-class Image(BaseModel):
-    url:HttpUrl
-    name:str
 
 
 
 
-@app.post("/offer/")
-async def create_mutiple_images(image:List[Image]):
+
+@app.post("/index-weights/")
+async def create_index_weights(weights:Dict[int,float]):
     
-    return image
+    return weights
 
 
     
