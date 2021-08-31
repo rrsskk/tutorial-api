@@ -1,7 +1,7 @@
 from typing import Optional, Set
 
 
-from fastapi import FastAPI, status
+from fastapi import FastAPI
 
 from pydantic import BaseModel
 
@@ -17,8 +17,18 @@ class Item(BaseModel):
 
 
 
-@app.post("/items/", response_model=Item, status_code=status.HTTP_201_CREATED)
+@app.post("/items/", response_model=Item,tags=["items"])
 
 async def create_item(item: Item):
     return item
 
+@app.get("/items/", tags=["items"])
+
+async def read_item():
+
+    return[{"name": "Foo","price":42}]
+
+@app.get("/users/",tags=["users"])
+
+async def read_users():
+    return [{"users":"johndoe"}]
