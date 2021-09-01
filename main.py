@@ -1,13 +1,15 @@
-async def get_db():
+from fastapi import Depends, FastAPI
+from fastapi.security import OAuth2PasswordBearer
 
-    db = DBSession()
+app = FastAPI()
 
-    try:
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
-        yield db
 
-    finally:
-        db.close()
+@app.get("/items/")
+async def read_items(token: str = Depends(oauth2_scheme)):
+    return {"token": token}
+
 
 
 
