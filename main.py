@@ -1,20 +1,42 @@
-import time
+from fastapi import FastAPI
 
-from fastapi import FastAPI, Request
+from fastapi.middleware.cors import CORSMiddleware
+
 
 app = FastAPI()
 
 
+origins = [
 
-@app.middleware("http")
+    "http://localhost.tiangolo.com",
 
-async def add_process_time_header(request: Request, call_next):
+    "https://localhost.tiangolo.com",
 
-    start_time = time.time()
+    "http://localhost",
 
-    response = await call_next(request)
+    "http://localhost:8080",
 
-    process_time = time.time() - start_time
-    response.headers["X-Process-Time"] = str(process_time)
+]
 
-    return response
+
+
+app.add_middleware(
+
+    CORSMiddleware,
+
+    allow_origins=origins,
+
+    allow_credentials=True,
+
+    allow_methods=["*"],
+
+    allow_headers=["*"],
+
+)
+
+
+
+@app.get("/")
+async def main():
+    return {"message": "Hello World"}
+
