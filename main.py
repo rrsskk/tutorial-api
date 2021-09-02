@@ -1,10 +1,9 @@
 from fastapi import FastAPI
 
-
-app = FastAPI(openapi_url="/api/v1/openapi.json")
-
+from fastapi.staticfiles import StaticFiles
 
 
-@app.get("/items/")
-async def read_items():
-    return [{"name": "Foo"}]
+app = FastAPI()
+
+
+app.mount("/static", StaticFiles(directory="static"), name="static")
